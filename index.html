@@ -15,7 +15,13 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            padding: 20px;
+            padding: 10px;
+        }
+
+        @media (min-width: 768px) {
+            body {
+                padding: 20px;
+            }
         }
 
         .container {
@@ -24,14 +30,28 @@
             background: white;
             border-radius: 20px;
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            padding: 30px;
+            padding: 20px 10px;
+        }
+
+        @media (min-width: 768px) {
+            .container {
+                padding: 30px;
+            }
         }
 
         h1 {
             text-align: center;
             color: #333;
-            margin-bottom: 30px;
-            font-size: 2.5em;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            padding: 0 10px;
+        }
+
+        @media (min-width: 768px) {
+            h1 {
+                font-size: 2.5em;
+                margin-bottom: 30px;
+            }
         }
 
         /* Setup Modal */
@@ -200,11 +220,20 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 15px;
-            padding: 15px;
+            gap: 10px;
+            padding: 10px 5px;
             background: #f8f9fa;
-            border-radius: 10px;
-            margin-bottom: 20px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        @media (min-width: 768px) {
+            .sync-status {
+                gap: 15px;
+                padding: 15px;
+                margin-bottom: 20px;
+            }
         }
 
         .sync-indicator {
@@ -233,43 +262,70 @@
         }
 
         .sync-info {
-            font-size: 0.9em;
+            font-size: 0.8em;
             color: #666;
         }
 
+        @media (min-width: 768px) {
+            .sync-info {
+                font-size: 0.9em;
+            }
+        }
+
         .btn-settings {
-            padding: 8px 20px;
+            padding: 6px 15px;
             background: #6c757d;
             color: white;
             border: none;
             border-radius: 6px;
             cursor: pointer;
-            font-size: 0.9em;
+            font-size: 0.8em;
+        }
+
+        @media (min-width: 768px) {
+            .btn-settings {
+                padding: 8px 20px;
+                font-size: 0.9em;
+            }
         }
 
         .input-section {
             background: #f8f9fa;
-            padding: 15px;
+            padding: 12px 8px;
             border-radius: 15px;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
+        }
+
+        @media (min-width: 768px) {
+            .input-section {
+                padding: 15px;
+            }
         }
 
         .person-selection {
             display: flex;
-            gap: 10px;
-            margin-bottom: 15px;
+            gap: 8px;
+            margin-bottom: 12px;
             justify-content: center;
         }
 
         .person-btn {
-            padding: 12px 30px;
-            font-size: 1em;
-            border: 3px solid #ddd;
-            border-radius: 10px;
+            padding: 10px 25px;
+            font-size: 0.95em;
+            border: 2px solid #ddd;
+            border-radius: 8px;
             cursor: pointer;
             background: white;
             transition: all 0.3s;
             font-weight: bold;
+        }
+
+        @media (min-width: 768px) {
+            .person-btn {
+                padding: 12px 30px;
+                font-size: 1em;
+                border: 3px solid #ddd;
+            }
         }
 
         .person-btn:hover {
@@ -290,52 +346,65 @@
         }
 
         .date-input {
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             text-align: center;
         }
 
         .date-input input {
-            padding: 10px;
-            font-size: 1em;
+            padding: 8px;
+            font-size: 0.9em;
             border: 2px solid #ddd;
-            border-radius: 8px;
-            width: 200px;
+            border-radius: 6px;
+            width: 180px;
+        }
+
+        @media (min-width: 768px) {
+            .date-input {
+                margin-bottom: 15px;
+            }
+            
+            .date-input input {
+                padding: 10px;
+                font-size: 1em;
+                width: 200px;
+                border-radius: 8px;
+            }
         }
 
         .activities-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-bottom: 15px;
+            gap: 6px;
+            margin-bottom: 12px;
         }
 
         .room-group {
             background: white;
-            border-radius: 8px;
-            padding: 10px;
-            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            padding: 8px;
+            border: 1px solid #e0e0e0;
         }
 
         .room-title {
-            font-size: 0.9em;
+            font-size: 0.8em;
             font-weight: bold;
             color: #333;
-            margin-bottom: 8px;
-            padding-bottom: 5px;
+            margin-bottom: 6px;
+            padding-bottom: 4px;
             border-bottom: 2px solid #667eea;
         }
 
         .room-activities {
             display: flex;
             flex-direction: column;
-            gap: 6px;
+            gap: 4px;
         }
 
         .activity-item {
             display: flex;
             align-items: center;
-            gap: 6px;
-            padding: 4px 6px;
+            gap: 5px;
+            padding: 3px 5px;
             background: #f8f9fa;
             border-radius: 4px;
             transition: all 0.2s;
@@ -346,34 +415,83 @@
         }
 
         .activity-item input[type="checkbox"] {
-            width: 16px;
-            height: 16px;
+            width: 14px;
+            height: 14px;
             cursor: pointer;
             flex-shrink: 0;
         }
 
         .activity-item label {
             cursor: pointer;
-            font-size: 0.85em;
-            line-height: 1.2;
+            font-size: 0.75em;
+            line-height: 1.1;
+        }
+
+        @media (min-width: 768px) {
+            .activities-container {
+                gap: 10px;
+            }
+            
+            .room-group {
+                padding: 10px;
+                border-radius: 8px;
+            }
+            
+            .room-title {
+                font-size: 0.9em;
+                margin-bottom: 8px;
+            }
+            
+            .room-activities {
+                gap: 6px;
+            }
+            
+            .activity-item {
+                padding: 4px 6px;
+                gap: 6px;
+            }
+            
+            .activity-item input[type="checkbox"] {
+                width: 16px;
+                height: 16px;
+            }
+            
+            .activity-item label {
+                font-size: 0.85em;
+            }
         }
 
         .action-buttons {
             display: flex;
-            gap: 10px;
+            gap: 8px;
             justify-content: center;
-            margin-top: 15px;
+            margin-top: 12px;
             flex-wrap: wrap;
         }
 
+        @media (min-width: 768px) {
+            .action-buttons {
+                gap: 10px;
+                margin-top: 15px;
+            }
+        }
+
         .btn {
-            padding: 10px 20px;
-            font-size: 0.95em;
+            padding: 8px 16px;
+            font-size: 0.85em;
             border: none;
-            border-radius: 8px;
+            border-radius: 6px;
             cursor: pointer;
             font-weight: bold;
             transition: all 0.3s;
+        }
+
+        @media (min-width: 768px) {
+            .btn {
+                padding: 10px 20px;
+                font-size: 0.95em;
+                border-radius: 8px;
+            }
         }
 
         .btn:hover {
@@ -402,18 +520,35 @@
         }
 
         .calendar-section {
-            margin-top: 20px;
+            margin-top: 15px;
+        }
+
+        @media (min-width: 768px) {
+            .calendar-section {
+                margin-top: 20px;
+            }
         }
 
         .calendar-header {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
         .calendar-header h2 {
             color: #333;
-            margin-bottom: 10px;
-            font-size: 1.5em;
+            margin-bottom: 8px;
+            font-size: 1.3em;
+        }
+
+        @media (min-width: 768px) {
+            .calendar-header {
+                margin-bottom: 20px;
+            }
+            
+            .calendar-header h2 {
+                font-size: 1.5em;
+                margin-bottom: 10px;
+            }
         }
 
         .current-month-container {
@@ -430,14 +565,22 @@
         }
 
         .btn-toggle-months {
-            padding: 10px 25px;
+            padding: 8px 20px;
             background: #6c757d;
             color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 6px;
             cursor: pointer;
-            font-size: 1em;
+            font-size: 0.9em;
             font-weight: bold;
+        }
+
+        @media (min-width: 768px) {
+            .btn-toggle-months {
+                padding: 10px 25px;
+                font-size: 1em;
+                border-radius: 8px;
+            }
         }
 
         .past-months-list {
@@ -456,31 +599,52 @@
 
         .month-calendar {
             background: #f8f9fa;
-            padding: 20px;
+            padding: 15px 10px;
             border-radius: 15px;
             width: 100%;
         }
 
         .month-title {
             text-align: center;
-            font-size: 1.4em;
+            font-size: 1.2em;
             font-weight: bold;
             color: #333;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
 
         .calendar-grid {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
-            gap: 8px;
+            gap: 3px;
+        }
+
+        @media (min-width: 768px) {
+            .calendar-grid {
+                gap: 8px;
+            }
+            
+            .month-calendar {
+                padding: 20px;
+            }
+            
+            .month-title {
+                font-size: 1.4em;
+            }
         }
 
         .day-header {
             text-align: center;
             font-weight: bold;
-            padding: 10px;
+            padding: 6px 2px;
             color: #666;
-            font-size: 0.9em;
+            font-size: 0.75em;
+        }
+
+        @media (min-width: 768px) {
+            .day-header {
+                padding: 10px;
+                font-size: 0.9em;
+            }
         }
 
         .day-cell {
@@ -488,15 +652,23 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 10px;
-            font-size: 1em;
+            border-radius: 8px;
+            font-size: 0.85em;
             font-weight: 600;
             position: relative;
             background: white;
             border: 2px solid #e0e0e0;
             cursor: pointer;
             transition: all 0.2s;
-            min-height: 45px;
+            min-height: 40px;
+        }
+
+        @media (min-width: 768px) {
+            .day-cell {
+                font-size: 1em;
+                min-height: 45px;
+                border-radius: 10px;
+            }
         }
 
         .day-cell:hover:not(.other-month) {
@@ -535,23 +707,48 @@
         .legend {
             display: flex;
             justify-content: center;
-            gap: 30px;
-            margin-top: 20px;
-            padding: 15px;
+            gap: 15px;
+            margin-top: 15px;
+            padding: 10px;
             background: #f8f9fa;
-            border-radius: 10px;
+            border-radius: 8px;
+            font-size: 0.85em;
+        }
+
+        @media (min-width: 768px) {
+            .legend {
+                gap: 30px;
+                margin-top: 20px;
+                padding: 15px;
+                border-radius: 10px;
+                font-size: 1em;
+            }
         }
 
         .legend-item {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 6px;
+        }
+
+        @media (min-width: 768px) {
+            .legend-item {
+                gap: 10px;
+            }
         }
 
         .legend-color {
-            width: 30px;
-            height: 30px;
-            border-radius: 5px;
+            width: 24px;
+            height: 24px;
+            border-radius: 4px;
+        }
+
+        @media (min-width: 768px) {
+            .legend-color {
+                width: 30px;
+                height: 30px;
+                border-radius: 5px;
+            }
         }
 
         .legend-color.tim {
@@ -831,7 +1028,7 @@
                         </div>
                         <div class="activity-item">
                             <input type="checkbox" id="act-treppe" value="treppe">
-                            <label for="act-treppe">Treppe</label>
+                            <label for="act-treppe">Treppe saugen</label>
                         </div>
                     </div>
                 </div>
@@ -1450,7 +1647,7 @@
                 'schlafzimmer-wischen': 'Schlafzimmer - Wischen',
                 'schlafzimmer-saugen': 'Schlafzimmer - Saugen',
                 'staubwischen': 'Staubwischen',
-                'treppe': 'Treppe'
+                'treppe': 'Treppe saugen'
             };
             return labels[activityValue] || activityValue;
         }
