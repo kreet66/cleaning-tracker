@@ -309,6 +309,43 @@
             justify-content: center;
         }
 
+        .person-date-row {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+        }
+
+        .person-selection-inline {
+            display: flex;
+            gap: 8px;
+            flex: 1;
+            justify-content: flex-start;
+        }
+
+        .date-input-inline {
+            flex: 0 0 auto;
+        }
+
+        @media (max-width: 480px) {
+            .person-date-row {
+                flex-direction: column;
+                gap: 12px;
+            }
+            
+            .person-selection-inline {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .date-input-inline {
+                width: 100%;
+                text-align: center;
+            }
+        }
+
         .person-btn {
             padding: 10px 25px;
             font-size: 0.95em;
@@ -350,7 +387,8 @@
             text-align: center;
         }
 
-        .date-input input {
+        .date-input input,
+        .date-input-inline input {
             padding: 8px;
             font-size: 0.9em;
             border: 2px solid #ddd;
@@ -363,7 +401,8 @@
                 margin-bottom: 15px;
             }
             
-            .date-input input {
+            .date-input input,
+            .date-input-inline input {
                 padding: 10px;
                 font-size: 1em;
                 width: 200px;
@@ -689,6 +728,27 @@
             font-weight: bold;
         }
 
+        .day-cell.past-empty {
+            position: relative;
+        }
+
+        .day-cell.past-empty::before {
+            content: '✕';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.8em;
+            color: #dc3545;
+            font-weight: bold;
+            opacity: 0.7;
+        }
+
+        .day-cell.past-empty {
+            color: #999;
+            font-size: 0.7em;
+        }
+
         .day-cell.tim-only {
             background: #4A90E2;
             color: white;
@@ -910,13 +970,15 @@
         </div>
 
         <div class="input-section">
-            <div class="person-selection">
-                <button class="person-btn" id="btn-tim" onclick="selectPerson('tim')">Tim</button>
-                <button class="person-btn" id="btn-sabrina" onclick="selectPerson('sabrina')">Sabrina</button>
-            </div>
+            <div class="person-date-row">
+                <div class="person-selection-inline">
+                    <button class="person-btn" id="btn-tim" onclick="selectPerson('tim')">Tim</button>
+                    <button class="person-btn" id="btn-sabrina" onclick="selectPerson('sabrina')">Sabrina</button>
+                </div>
 
-            <div class="date-input">
-                <input type="date" id="activity-date" />
+                <div class="date-input-inline">
+                    <input type="date" id="activity-date" />
+                </div>
             </div>
 
             <div class="activities-container" id="activities-container">
@@ -1522,10 +1584,12 @@
                     cell.classList.add('today');
                 }
 
-                if (cleaningData[dateStr]) {
-                    const hasTim = cleaningData[dateStr].tim && cleaningData[dateStr].tim.length > 0;
-                    const hasSabrina = cleaningData[dateStr].sabrina && cleaningData[dateStr].sabrina.length > 0;
+                // Check für Aktivitäten
+                const hasData = cleaningData[dateStr];
+                const hasTim = hasData && hasData.tim && hasData.tim.length > 0;
+                const hasSabrina = hasData && hasData.sabrina && hasData.sabrina.length > 0;
 
+                if (hasTim || hasSabrina) {
                     if (hasTim && hasSabrina) {
                         cell.classList.add('has-activity', 'both');
                     } else if (hasTim) {
@@ -1533,6 +1597,9 @@
                     } else if (hasSabrina) {
                         cell.classList.add('has-activity', 'sabrina-only');
                     }
+                } else if (cellDate < today) {
+                    // Vergangener Tag OHNE Aktivitäten → Rotes X
+                    cell.classList.add('past-empty');
                 }
 
                 // Klick-Event für Bearbeitung
