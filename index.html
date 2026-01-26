@@ -1236,14 +1236,24 @@
             const today = new Date();
             currentMonthContainer.appendChild(createMonthCalendar(today, true));
             
-            // Vergangene Monate (initial versteckt)
+            // Vergangene Monate (nur ab Januar 2026)
             const pastMonthsList = document.getElementById('past-months-list');
             pastMonthsList.innerHTML = '';
             
-            // Erstelle die letzten 6 Monate
-            for (let i = 1; i <= 6; i++) {
-                const monthDate = new Date(today.getFullYear(), today.getMonth() - i, 1);
-                pastMonthsList.appendChild(createMonthCalendar(monthDate, false));
+            const startDate = new Date(2026, 0, 1); // Januar 2026
+            const currentMonth = today.getMonth();
+            const currentYear = today.getFullYear();
+            
+            // Berechne wie viele Monate seit Januar 2026 vergangen sind
+            const monthsSinceStart = (currentYear - 2026) * 12 + currentMonth;
+            
+            // Erstelle Monate rückwärts von aktuellem Monat bis Januar 2026
+            for (let i = 1; i <= monthsSinceStart; i++) {
+                const monthDate = new Date(currentYear, currentMonth - i, 1);
+                // Nur Monate ab Januar 2026 anzeigen
+                if (monthDate >= startDate) {
+                    pastMonthsList.appendChild(createMonthCalendar(monthDate, false));
+                }
             }
         }
 
@@ -1304,7 +1314,12 @@
                 cell.textContent = day;
 
                 const cellDate = new Date(date.getFullYear(), date.getMonth(), day);
-                const dateStr = cellDate.toISOString().split('T')[0];
+                
+                // KORREKTUR: Lokales Datumsformat ohne Timezone-Probleme
+                const year = cellDate.getFullYear();
+                const month = String(cellDate.getMonth() + 1).padStart(2, '0');
+                const dayStr = String(cellDate.getDate()).padStart(2, '0');
+                const dateStr = `${year}-${month}-${dayStr}`;
 
                 if (cellDate.getTime() === today.getTime()) {
                     cell.classList.add('today');
@@ -1349,8 +1364,9 @@
         function openEditModal(dateStr) {
             currentEditDate = dateStr;
             
-            // Formatiere Datum für Anzeige
-            const date = new Date(dateStr + 'T12:00:00');
+            // Formatiere Datum für Anzeige - KORREKTUR: Lokales Datum ohne Timezone
+            const [year, month, day] = dateStr.split('-');
+            const date = new Date(year, month - 1, day);
             const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
             const dateDisplay = date.toLocaleDateString('de-DE', options);
             
