@@ -14,5 +14,16 @@
   "2026-01-23": {
     "tim": [],
     "sabrina": []
+  },
+  "2026-01-20": {
+    "tim": [
+      "kueche-wischen",
+      "kueche-saugen",
+      "bad-oben-wischen",
+      "bad-oben-saugen",
+      "schlafzimmer-wischen",
+      "schlafzimmer-saugen"
+    ],
+    "sabrina": []
   }
 }
