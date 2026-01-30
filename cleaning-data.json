@@ -27,5 +27,14 @@
       "schlafzimmer-saugen"
     ],
     "sabrina": []
+  },
+  "2026-01-30": {
+    "tim": [],
+    "sabrina": [
+      "kueche-saugen",
+      "bad-oben-saugen",
+      "bad-unten-saugen",
+      "treppe"
+    ]
   }
 }
