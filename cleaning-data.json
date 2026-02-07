@@ -54,7 +54,13 @@
     ]
   },
   "2026-02-07": {
-    "tim": [],
+    "tim": [
+      "bad-oben-wischen",
+      "bad-oben-saugen",
+      "bad-oben-putzen",
+      "schlafzimmer-wischen",
+      "schlafzimmer-saugen"
+    ],
     "sabrina": [
       "bad-unten-putzen"
     ]
