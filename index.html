@@ -11,11 +11,42 @@
             box-sizing: border-box;
         }
 
+        :root {
+            --bg-gradient-start: #667eea;
+            --bg-gradient-end: #764ba2;
+            --container-bg: #ffffff;
+            --text-primary: #333333;
+            --text-secondary: #666666;
+            --text-tertiary: #999999;
+            --border-color: #e0e0e0;
+            --input-bg: #f8f9fa;
+            --card-bg: #ffffff;
+            --shadow: rgba(0, 0, 0, 0.1);
+            --day-cell-bg: #ffffff;
+            --day-cell-border: #e0e0e0;
+        }
+
+        body.dark-mode {
+            --bg-gradient-start: #1a1a2e;
+            --bg-gradient-end: #16213e;
+            --container-bg: #0f1419;
+            --text-primary: #e0e0e0;
+            --text-secondary: #b0b0b0;
+            --text-tertiary: #808080;
+            --border-color: #2a2a3e;
+            --input-bg: #1a1a2e;
+            --card-bg: #16213e;
+            --shadow: rgba(0, 0, 0, 0.3);
+            --day-cell-bg: #1a1a2e;
+            --day-cell-border: #2a2a3e;
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
             min-height: 100vh;
             padding: 10px;
+            transition: background 0.3s ease;
         }
 
         @media (min-width: 768px) {
@@ -27,10 +58,11 @@
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            background: white;
+            background: var(--container-bg);
             border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            box-shadow: 0 20px 60px var(--shadow);
             padding: 20px 10px;
+            transition: all 0.3s ease;
         }
 
         @media (min-width: 768px) {
@@ -39,19 +71,63 @@
             }
         }
 
+        .header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            gap: 10px;
+        }
+
         h1 {
             text-align: center;
-            color: #333;
-            margin-bottom: 20px;
+            color: var(--text-primary);
             font-size: 1.8em;
             padding: 0 10px;
+            flex: 1;
         }
 
         @media (min-width: 768px) {
             h1 {
                 font-size: 2.5em;
+            }
+            
+            .header-row {
                 margin-bottom: 30px;
             }
+        }
+
+        .btn-dark-mode {
+            padding: 10px;
+            background: var(--input-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.5em;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            flex-shrink: 0;
+        }
+
+        .btn-dark-mode:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 12px var(--shadow);
+        }
+
+        .dark-mode-icon {
+            transition: transform 0.3s;
+        }
+
+        body.dark-mode .dark-mode-icon::before {
+            content: '☀️';
+        }
+
+        body:not(.dark-mode) .dark-mode-icon::before {
+            content: '🌙';
         }
 
         /* Setup Modal */
@@ -73,7 +149,7 @@
         }
 
         .modal-content {
-            background: white;
+            background: var(--container-bg);
             padding: 40px;
             border-radius: 20px;
             max-width: 600px;
@@ -84,7 +160,7 @@
 
         .modal-content h2 {
             margin-bottom: 20px;
-            color: #333;
+            color: var(--text-primary);
         }
 
         .edit-modal-content {
@@ -290,7 +366,7 @@
         }
 
         .input-section {
-            background: #f8f9fa;
+            background: var(--input-bg);
             padding: 12px 8px;
             border-radius: 15px;
             margin-bottom: 15px;
@@ -349,19 +425,20 @@
         .person-btn {
             padding: 10px 25px;
             font-size: 0.95em;
-            border: 2px solid #ddd;
+            border: 2px solid var(--border-color);
             border-radius: 8px;
             cursor: pointer;
-            background: white;
+            background: var(--day-cell-bg);
             transition: all 0.3s;
             font-weight: bold;
+            color: var(--text-primary);
         }
 
         @media (min-width: 768px) {
             .person-btn {
                 padding: 12px 30px;
                 font-size: 1em;
-                border: 3px solid #ddd;
+                border: 3px solid var(--border-color);
             }
         }
 
@@ -391,9 +468,11 @@
         .date-input-inline input {
             padding: 8px;
             font-size: 0.9em;
-            border: 2px solid #ddd;
+            border: 2px solid var(--border-color);
             border-radius: 6px;
             width: 180px;
+            background: var(--day-cell-bg);
+            color: var(--text-primary);
         }
 
         @media (min-width: 768px) {
@@ -418,19 +497,45 @@
         }
 
         .room-group {
-            background: white;
+            background: var(--day-cell-bg);
             border-radius: 6px;
             padding: 8px;
-            border: 1px solid #e0e0e0;
+            border: 1px solid var(--border-color);
         }
 
         .room-title {
             font-size: 0.8em;
             font-weight: bold;
-            color: #333;
+            color: var(--text-primary);
             margin-bottom: 6px;
             padding-bottom: 4px;
             border-bottom: 2px solid #667eea;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .days-since-badge {
+            font-size: 0.75em;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+            margin-left: 4px;
+        }
+
+        .days-since-badge.fresh {
+            background: #28a745;
+            color: white;
+        }
+
+        .days-since-badge.warning {
+            background: #ffc107;
+            color: #333;
+        }
+
+        .days-since-badge.critical {
+            background: #dc3545;
+            color: white;
         }
 
         .room-activities {
@@ -444,13 +549,13 @@
             align-items: center;
             gap: 5px;
             padding: 3px 5px;
-            background: #f8f9fa;
+            background: var(--input-bg);
             border-radius: 4px;
             transition: all 0.2s;
         }
 
         .activity-item:hover {
-            background: #e9ecef;
+            background: var(--border-color);
         }
 
         .activity-item input[type="checkbox"] {
@@ -464,6 +569,7 @@
             cursor: pointer;
             font-size: 0.75em;
             line-height: 1.1;
+            color: var(--text-primary);
         }
 
         @media (min-width: 768px) {
@@ -637,7 +743,7 @@
         }
 
         .month-calendar {
-            background: #f8f9fa;
+            background: var(--input-bg);
             padding: 15px 10px;
             border-radius: 15px;
             width: 100%;
@@ -647,7 +753,7 @@
             text-align: center;
             font-size: 1.2em;
             font-weight: bold;
-            color: #333;
+            color: var(--text-primary);
             margin-bottom: 12px;
         }
 
@@ -675,7 +781,7 @@
             text-align: center;
             font-weight: bold;
             padding: 6px 2px;
-            color: #666;
+            color: var(--text-secondary);
             font-size: 0.75em;
         }
 
@@ -695,11 +801,12 @@
             font-size: 0.85em;
             font-weight: 600;
             position: relative;
-            background: white;
-            border: 2px solid #e0e0e0;
+            background: var(--day-cell-bg);
+            border: 2px solid var(--day-cell-border);
             cursor: pointer;
             transition: all 0.2s;
             min-height: 40px;
+            color: var(--text-primary);
         }
 
         @media (min-width: 768px) {
@@ -865,6 +972,219 @@
             display: none;
         }
 
+        /* KPI Dashboard Styles */
+        .kpi-section {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 2px solid #e0e0e0;
+        }
+
+        .kpi-toggle {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .btn-toggle-kpi {
+            padding: 12px 30px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .btn-toggle-kpi:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .kpi-content {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .kpi-content.open {
+            display: block;
+        }
+
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .kpi-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .kpi-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 12px var(--shadow);
+            border: 2px solid var(--border-color);
+        }
+
+        .kpi-card-wide {
+            grid-column: 1 / -1;
+        }
+
+        .kpi-card h3 {
+            margin: 0 0 15px 0;
+            color: var(--text-primary);
+            font-size: 1.1em;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 8px;
+        }
+
+        .kpi-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #667eea;
+            margin: 10px 0;
+        }
+
+        .kpi-label {
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 8px;
+        }
+
+        .kpi-bar {
+            height: 30px;
+            background: #e0e0e0;
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 10px 0;
+            position: relative;
+        }
+
+        .kpi-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            transition: width 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 10px;
+            color: white;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+
+        .kpi-bar-fill.tim {
+            background: linear-gradient(90deg, #4A90E2, #357ABD);
+        }
+
+        .kpi-bar-fill.sabrina {
+            background: linear-gradient(90deg, #E24A4A, #C93A3A);
+        }
+
+        .kpi-list {
+            list-style: none;
+            padding: 0;
+            margin: 10px 0;
+        }
+
+        .kpi-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .kpi-list li:last-child {
+            border-bottom: none;
+        }
+
+        .kpi-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.85em;
+            font-weight: bold;
+            background: #f0f0f0;
+            color: #666;
+        }
+
+        .kpi-badge.tim {
+            background: #4A90E2;
+            color: white;
+        }
+
+        .kpi-badge.sabrina {
+            background: #E24A4A;
+            color: white;
+        }
+
+        .kpi-timeline-chart {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            height: 150px;
+            margin: 20px 0;
+            gap: 10px;
+        }
+
+        .kpi-timeline-bar {
+            flex: 1;
+            background: #f0f0f0;
+            border-radius: 8px 8px 0 0;
+            position: relative;
+            min-height: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+
+        .kpi-timeline-segment {
+            width: 100%;
+            border-radius: 8px 8px 0 0;
+        }
+
+        .kpi-timeline-segment.tim {
+            background: #4A90E2;
+        }
+
+        .kpi-timeline-segment.sabrina {
+            background: #E24A4A;
+        }
+
+        .kpi-timeline-label {
+            text-align: center;
+            font-size: 0.8em;
+            color: #666;
+            margin-top: 8px;
+        }
+
+        .btn-export,
+        .btn-import {
+            background: #17a2b8;
+            color: white;
+        }
+
+        @media (max-width: 480px) {
+            .kpi-card {
+                padding: 15px;
+            }
+            
+            .kpi-value {
+                font-size: 1.5em;
+            }
+            
+            .btn-toggle-kpi {
+                padding: 10px 20px;
+                font-size: 0.9em;
+            }
+        }
+
         @media (max-width: 768px) {
             .container {
                 padding: 15px;
@@ -959,7 +1279,12 @@
     </div>
 
     <div class="container">
-        <h1>🧹 Haushalts-Reinigungstracker</h1>
+        <div class="header-row">
+            <h1>🧹 Haushalts-Reinigungstracker</h1>
+            <button class="btn-dark-mode" onclick="toggleDarkMode()" title="Dark Mode umschalten">
+                <span class="dark-mode-icon">🌙</span>
+            </button>
+        </div>
         
         <!-- Sync Status -->
         <div class="sync-status">
@@ -1098,6 +1423,9 @@
 
             <div class="action-buttons">
                 <button class="btn btn-save" onclick="saveActivities()">💾 Speichern & Sync</button>
+                <button class="btn btn-export" onclick="exportDataBackup()">📥 Export Backup</button>
+                <button class="btn btn-import" onclick="importDataBackup()">📤 Import Backup</button>
+                <input type="file" id="import-backup-file" class="hidden" accept=".json" onchange="handleBackupImport(event)">
             </div>
         </div>
 
@@ -1136,6 +1464,66 @@
                 </div>
             </div>
         </div>
+
+        <!-- KPI Dashboard -->
+        <div class="kpi-section">
+            <div class="kpi-toggle">
+                <button class="btn-toggle-kpi" onclick="toggleKPI()">
+                    📊 Statistiken & KPIs anzeigen
+                </button>
+            </div>
+            <div class="kpi-content" id="kpi-content">
+                <div class="kpi-grid">
+                    <!-- Gesamtübersicht -->
+                    <div class="kpi-card">
+                        <h3>🏆 Gesamtübersicht</h3>
+                        <div id="kpi-overview"></div>
+                    </div>
+
+                    <!-- Balance -->
+                    <div class="kpi-card">
+                        <h3>⚖️ Balance</h3>
+                        <div id="kpi-balance"></div>
+                    </div>
+
+                    <!-- Streak -->
+                    <div class="kpi-card">
+                        <h3>🔥 Aktuelle Serie</h3>
+                        <div id="kpi-streak"></div>
+                    </div>
+
+                    <!-- Monatliche Statistik -->
+                    <div class="kpi-card">
+                        <h3>📅 Dieser Monat</h3>
+                        <div id="kpi-month"></div>
+                    </div>
+
+                    <!-- Top Aktivitäten -->
+                    <div class="kpi-card">
+                        <h3>⭐ Top Aktivitäten</h3>
+                        <div id="kpi-top-activities"></div>
+                    </div>
+
+                    <!-- Wochendurchschnitt -->
+                    <div class="kpi-card">
+                        <h3>📈 Durchschnitte</h3>
+                        <div id="kpi-averages"></div>
+                    </div>
+
+                    <!-- Aktivste Tage -->
+                    <div class="kpi-card">
+                        <h3>💪 Rekorde</h3>
+                        <div id="kpi-records"></div>
+                    </div>
+
+                    <!-- Monatsverlauf -->
+                    <div class="kpi-card kpi-card-wide">
+                        <h3>📊 Verlauf letzte 3 Monate</h3>
+                        <div id="kpi-timeline"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -1144,10 +1532,124 @@
         let githubConfig = null;
         let currentFileSha = null;
 
+        // Dark Mode Functions
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            const isDark = document.body.classList.contains('dark-mode');
+            localStorage.setItem('darkMode', isDark ? 'enabled' : 'disabled');
+        }
+
+        // Load Dark Mode Preference
+        function loadDarkMode() {
+            const darkMode = localStorage.getItem('darkMode');
+            if (darkMode === 'enabled' || (darkMode === null && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.body.classList.add('dark-mode');
+            }
+        }
+
+        // Days Since Last Cleaning Functions
+        function getDaysSinceLastCleaning(roomActivities) {
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            
+            let lastDate = null;
+            
+            // Durchsuche alle Daten nach den Raum-Aktivitäten
+            Object.keys(cleaningData).forEach(dateStr => {
+                const data = cleaningData[dateStr];
+                
+                // Check ob einer der beiden Personen eine der Raum-Aktivitäten gemacht hat
+                ['tim', 'sabrina'].forEach(person => {
+                    if (data[person]) {
+                        const hasRoomActivity = data[person].some(activity => roomActivities.includes(activity));
+                        if (hasRoomActivity) {
+                            const [year, month, day] = dateStr.split('-');
+                            const checkDate = new Date(year, month - 1, day);
+                            if (!lastDate || checkDate > lastDate) {
+                                lastDate = checkDate;
+                            }
+                        }
+                    }
+                });
+            });
+            
+            if (!lastDate) return null;
+            
+            const diffTime = today - lastDate;
+            const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+            
+            return diffDays;
+        }
+
+        function updateDaysSinceBadges() {
+            const roomActivitiesMap = {
+                'kueche': ['kueche-wischen', 'kueche-saugen'],
+                'wohnzimmer': ['wohnzimmer-wischen', 'wohnzimmer-saugen'],
+                'bad-oben': ['bad-oben-wischen', 'bad-oben-saugen', 'bad-oben-putzen'],
+                'bad-unten': ['bad-unten-wischen', 'bad-unten-saugen', 'bad-unten-putzen'],
+                'keller': ['keller-wischen', 'keller-saugen'],
+                'schlafzimmer': ['schlafzimmer-wischen', 'schlafzimmer-saugen'],
+                'sonstiges': ['staubwischen', 'treppe']
+            };
+            
+            // Finde alle room-title Elemente
+            const roomTitles = document.querySelectorAll('.room-title');
+            
+            roomTitles.forEach(title => {
+                // Extrahiere Raum-Namen aus dem Text
+                const roomText = title.textContent.replace(/\s*-\d+.*$/, '').trim().toLowerCase();
+                
+                let roomKey = null;
+                if (roomText.includes('küche') || roomText.includes('esszimmer') || roomText.includes('flur')) {
+                    roomKey = 'kueche';
+                } else if (roomText.includes('wohnzimmer')) {
+                    roomKey = 'wohnzimmer';
+                } else if (roomText.includes('bad') && roomText.includes('oben')) {
+                    roomKey = 'bad-oben';
+                } else if (roomText.includes('bad') && roomText.includes('unten')) {
+                    roomKey = 'bad-unten';
+                } else if (roomText.includes('keller')) {
+                    roomKey = 'keller';
+                } else if (roomText.includes('schlafzimmer')) {
+                    roomKey = 'schlafzimmer';
+                } else if (roomText.includes('sonstiges')) {
+                    roomKey = 'sonstiges';
+                }
+                
+                if (roomKey) {
+                    const days = getDaysSinceLastCleaning(roomActivitiesMap[roomKey]);
+                    
+                    // Entferne altes Badge falls vorhanden
+                    const oldBadge = title.querySelector('.days-since-badge');
+                    if (oldBadge) oldBadge.remove();
+                    
+                    if (days !== null && days > 0) {
+                        const badge = document.createElement('span');
+                        badge.className = 'days-since-badge';
+                        badge.textContent = `-${days}`;
+                        
+                        // Farbcodierung
+                        if (days <= 2) {
+                            badge.classList.add('fresh');
+                        } else if (days <= 7) {
+                            badge.classList.add('warning');
+                        } else {
+                            badge.classList.add('critical');
+                        }
+                        
+                        title.appendChild(badge);
+                    }
+                }
+            });
+        }
+
         // Initialisierung
         document.addEventListener('DOMContentLoaded', function() {
             // Setze heutiges Datum
             document.getElementById('activity-date').valueAsDate = new Date();
+            
+            // Dark Mode laden
+            loadDarkMode();
             
             // Lade GitHub Config
             loadGitHubConfig();
@@ -1158,6 +1660,11 @@
             } else {
                 openSetupModal();
             }
+            
+            // Update Days Since Badges nach kurzem Delay (damit cleaningData geladen ist)
+            setTimeout(() => {
+                updateDaysSinceBadges();
+            }, 500);
         });
 
         // GitHub Configuration
@@ -1330,6 +1837,15 @@
                     cleaningData = JSON.parse(content);
                     
                     renderCalendar();
+                    
+                    // Days Since Badges aktualisieren
+                    updateDaysSinceBadges();
+                    
+                    // KPIs aktualisieren falls geöffnet
+                    if (document.getElementById('kpi-content') && document.getElementById('kpi-content').classList.contains('open')) {
+                        updateKPIs();
+                    }
+                    
                     updateSyncStatus('synced', `Letzte Sync: ${new Date().toLocaleTimeString('de-DE')}`);
                     showMessage('✅ Daten von GitHub geladen!', 'success');
                 } else if (response.status === 404) {
@@ -1482,6 +1998,14 @@
             
             // Kalender neu rendern
             renderCalendar();
+            
+            // Days Since Badges aktualisieren
+            updateDaysSinceBadges();
+            
+            // KPIs aktualisieren falls geöffnet
+            if (document.getElementById('kpi-content').classList.contains('open')) {
+                updateKPIs();
+            }
         }
 
         // Calendar Rendering
@@ -1735,11 +2259,351 @@
             // Modal schließen und Kalender neu rendern
             closeEditModal();
             renderCalendar();
+            
+            // Days Since Badges aktualisieren
+            updateDaysSinceBadges();
+            
+            // KPIs aktualisieren falls geöffnet
+            if (document.getElementById('kpi-content').classList.contains('open')) {
+                updateKPIs();
+            }
         }
 
         function closeEditModal() {
             document.getElementById('edit-modal').classList.remove('active');
             currentEditDate = null;
+        }
+
+        // Backup Export/Import Functions
+        function exportDataBackup() {
+            const dataStr = JSON.stringify(cleaningData, null, 2);
+            const dataBlob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            const date = new Date().toISOString().split('T')[0];
+            link.href = url;
+            link.download = `cleaning-tracker-backup-${date}.json`;
+            link.click();
+            URL.revokeObjectURL(url);
+            showMessage('✅ Backup heruntergeladen!', 'success');
+        }
+
+        function importDataBackup() {
+            document.getElementById('import-backup-file').click();
+        }
+
+        async function handleBackupImport(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = async function(e) {
+                try {
+                    const imported = JSON.parse(e.target.result);
+                    
+                    // Merge mit existierenden Daten
+                    Object.keys(imported).forEach(date => {
+                        if (!cleaningData[date]) {
+                            cleaningData[date] = imported[date];
+                        } else {
+                            // Merge Activities
+                            ['tim', 'sabrina'].forEach(person => {
+                                if (imported[date][person]) {
+                                    imported[date][person].forEach(activity => {
+                                        if (!cleaningData[date][person].includes(activity)) {
+                                            cleaningData[date][person].push(activity);
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                    });
+                    
+                    await syncToGitHub();
+                    renderCalendar();
+                    updateKPIs();
+                    showMessage('✅ Backup importiert & synchronisiert!', 'success');
+                } catch (error) {
+                    showMessage('❌ Fehler beim Import!', 'error');
+                }
+            };
+            reader.readAsText(file);
+            event.target.value = '';
+        }
+
+        // KPI Functions
+        function toggleKPI() {
+            const content = document.getElementById('kpi-content');
+            const button = document.querySelector('.btn-toggle-kpi');
+            
+            if (content.classList.contains('open')) {
+                content.classList.remove('open');
+                button.textContent = '📊 Statistiken & KPIs anzeigen';
+            } else {
+                content.classList.add('open');
+                button.textContent = '📊 Statistiken & KPIs ausblenden';
+                updateKPIs();
+            }
+        }
+
+        function updateKPIs() {
+            calculateOverview();
+            calculateBalance();
+            calculateStreak();
+            calculateMonthStats();
+            calculateTopActivities();
+            calculateAverages();
+            calculateRecords();
+            calculateTimeline();
+        }
+
+        function calculateOverview() {
+            let timTotal = 0;
+            let sabrinaTotal = 0;
+            let totalDays = 0;
+            
+            Object.keys(cleaningData).forEach(date => {
+                const data = cleaningData[date];
+                if (data.tim && data.tim.length > 0) timTotal += data.tim.length;
+                if (data.sabrina && data.sabrina.length > 0) sabrinaTotal += data.sabrina.length;
+                if ((data.tim && data.tim.length > 0) || (data.sabrina && data.sabrina.length > 0)) totalDays++;
+            });
+            
+            const total = timTotal + sabrinaTotal;
+            
+            document.getElementById('kpi-overview').innerHTML = `
+                <div class="kpi-value">${total}</div>
+                <div class="kpi-label">Aktivitäten insgesamt</div>
+                <div class="kpi-list">
+                    <li><span>Tim</span> <span class="kpi-badge tim">${timTotal}</span></li>
+                    <li><span>Sabrina</span> <span class="kpi-badge sabrina">${sabrinaTotal}</span></li>
+                    <li><span>Aktive Tage</span> <span class="kpi-badge">${totalDays}</span></li>
+                </div>
+            `;
+        }
+
+        function calculateBalance() {
+            let timTotal = 0;
+            let sabrinaTotal = 0;
+            
+            Object.keys(cleaningData).forEach(date => {
+                const data = cleaningData[date];
+                if (data.tim) timTotal += data.tim.length;
+                if (data.sabrina) sabrinaTotal += data.sabrina.length;
+            });
+            
+            const total = timTotal + sabrinaTotal;
+            const timPercent = total > 0 ? Math.round((timTotal / total) * 100) : 0;
+            const sabrinaPercent = total > 0 ? Math.round((sabrinaTotal / total) * 100) : 0;
+            
+            let balanceText = '⚖️ Perfekt ausgeglichen!';
+            if (Math.abs(timPercent - sabrinaPercent) > 10) {
+                balanceText = timPercent > sabrinaPercent ? '💙 Tim führt!' : '❤️ Sabrina führt!';
+            }
+            
+            document.getElementById('kpi-balance').innerHTML = `
+                <div class="kpi-label">${balanceText}</div>
+                <div class="kpi-bar">
+                    <div class="kpi-bar-fill tim" style="width: ${timPercent}%">${timPercent}%</div>
+                </div>
+                <div class="kpi-bar">
+                    <div class="kpi-bar-fill sabrina" style="width: ${sabrinaPercent}%">${sabrinaPercent}%</div>
+                </div>
+            `;
+        }
+
+        function calculateStreak() {
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+            let streak = 0;
+            let checkDate = new Date(today);
+            
+            while (true) {
+                const year = checkDate.getFullYear();
+                const month = String(checkDate.getMonth() + 1).padStart(2, '0');
+                const day = String(checkDate.getDate()).padStart(2, '0');
+                const dateStr = `${year}-${month}-${day}`;
+                
+                const data = cleaningData[dateStr];
+                const hasActivity = data && ((data.tim && data.tim.length > 0) || (data.sabrina && data.sabrina.length > 0));
+                
+                if (hasActivity) {
+                    streak++;
+                    checkDate.setDate(checkDate.getDate() - 1);
+                } else {
+                    break;
+                }
+                
+                if (streak > 365) break; // Sicherheits-Limit
+            }
+            
+            const emoji = streak >= 7 ? '🔥🔥🔥' : streak >= 3 ? '🔥🔥' : streak >= 1 ? '🔥' : '😴';
+            
+            document.getElementById('kpi-streak').innerHTML = `
+                <div class="kpi-value">${streak} ${emoji}</div>
+                <div class="kpi-label">Tage in Folge geputzt</div>
+            `;
+        }
+
+        function calculateMonthStats() {
+            const now = new Date();
+            const currentMonth = now.getMonth();
+            const currentYear = now.getFullYear();
+            
+            let timCount = 0;
+            let sabrinaCount = 0;
+            let activeDays = 0;
+            
+            Object.keys(cleaningData).forEach(dateStr => {
+                const [year, month] = dateStr.split('-');
+                if (parseInt(year) === currentYear && parseInt(month) === currentMonth + 1) {
+                    const data = cleaningData[dateStr];
+                    if (data.tim && data.tim.length > 0) timCount += data.tim.length;
+                    if (data.sabrina && data.sabrina.length > 0) sabrinaCount += data.sabrina.length;
+                    if ((data.tim && data.tim.length > 0) || (data.sabrina && data.sabrina.length > 0)) activeDays++;
+                }
+            });
+            
+            const monthNames = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni',
+                              'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
+            
+            document.getElementById('kpi-month').innerHTML = `
+                <div class="kpi-label">${monthNames[currentMonth]} ${currentYear}</div>
+                <div class="kpi-list">
+                    <li><span>Tim</span> <span class="kpi-badge tim">${timCount}</span></li>
+                    <li><span>Sabrina</span> <span class="kpi-badge sabrina">${sabrinaCount}</span></li>
+                    <li><span>Aktive Tage</span> <span class="kpi-badge">${activeDays}</span></li>
+                </div>
+            `;
+        }
+
+        function calculateTopActivities() {
+            const activities = {};
+            
+            Object.keys(cleaningData).forEach(date => {
+                const data = cleaningData[date];
+                ['tim', 'sabrina'].forEach(person => {
+                    if (data[person]) {
+                        data[person].forEach(activity => {
+                            activities[activity] = (activities[activity] || 0) + 1;
+                        });
+                    }
+                });
+            });
+            
+            const sorted = Object.entries(activities)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 5);
+            
+            let html = '<div class="kpi-list">';
+            sorted.forEach(([activity, count]) => {
+                const label = getActivityLabel(activity);
+                html += `<li><span>${label}</span> <span class="kpi-badge">${count}x</span></li>`;
+            });
+            html += '</div>';
+            
+            document.getElementById('kpi-top-activities').innerHTML = html || '<div class="kpi-label">Noch keine Daten</div>';
+        }
+
+        function calculateAverages() {
+            const now = new Date();
+            const thirtyDaysAgo = new Date(now);
+            thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+            
+            let totalActivities = 0;
+            let days = 0;
+            
+            Object.keys(cleaningData).forEach(dateStr => {
+                const date = new Date(dateStr + 'T12:00:00');
+                if (date >= thirtyDaysAgo && date <= now) {
+                    const data = cleaningData[dateStr];
+                    if (data.tim) totalActivities += data.tim.length;
+                    if (data.sabrina) totalActivities += data.sabrina.length;
+                    if ((data.tim && data.tim.length > 0) || (data.sabrina && data.sabrina.length > 0)) days++;
+                }
+            });
+            
+            const avgPerDay = days > 0 ? (totalActivities / days).toFixed(1) : 0;
+            const avgPerWeek = days > 0 ? (totalActivities / 30 * 7).toFixed(1) : 0;
+            
+            document.getElementById('kpi-averages').innerHTML = `
+                <div class="kpi-list">
+                    <li><span>Pro Tag</span> <span class="kpi-badge">${avgPerDay}</span></li>
+                    <li><span>Pro Woche</span> <span class="kpi-badge">${avgPerWeek}</span></li>
+                    <li><span>Aktive Tage (30d)</span> <span class="kpi-badge">${days}</span></li>
+                </div>
+            `;
+        }
+
+        function calculateRecords() {
+            let maxDay = { date: '', count: 0 };
+            let maxWeek = 0;
+            
+            Object.keys(cleaningData).forEach(date => {
+                const data = cleaningData[date];
+                const count = (data.tim?.length || 0) + (data.sabrina?.length || 0);
+                if (count > maxDay.count) {
+                    maxDay = { date, count };
+                }
+            });
+            
+            const dateObj = maxDay.date ? new Date(maxDay.date + 'T12:00:00') : null;
+            const dateStr = dateObj ? dateObj.toLocaleDateString('de-DE', { day: 'numeric', month: 'short' }) : '-';
+            
+            document.getElementById('kpi-records').innerHTML = `
+                <div class="kpi-list">
+                    <li><span>Rekord-Tag</span> <span class="kpi-badge">${maxDay.count}x</span></li>
+                    <li><span>Datum</span> <span class="kpi-badge">${dateStr}</span></li>
+                </div>
+            `;
+        }
+
+        function calculateTimeline() {
+            const now = new Date();
+            const months = [];
+            
+            for (let i = 2; i >= 0; i--) {
+                const date = new Date(now.getFullYear(), now.getMonth() - i, 1);
+                const year = date.getFullYear();
+                const month = date.getMonth() + 1;
+                
+                let timCount = 0;
+                let sabrinaCount = 0;
+                
+                Object.keys(cleaningData).forEach(dateStr => {
+                    const [y, m] = dateStr.split('-');
+                    if (parseInt(y) === year && parseInt(m) === month) {
+                        const data = cleaningData[dateStr];
+                        if (data.tim) timCount += data.tim.length;
+                        if (data.sabrina) sabrinaCount += data.sabrina.length;
+                    }
+                });
+                
+                months.push({
+                    name: date.toLocaleDateString('de-DE', { month: 'short' }),
+                    tim: timCount,
+                    sabrina: sabrinaCount,
+                    total: timCount + sabrinaCount
+                });
+            }
+            
+            const maxTotal = Math.max(...months.map(m => m.total), 1);
+            
+            let html = '<div class="kpi-timeline-chart">';
+            months.forEach(month => {
+                const timHeight = (month.tim / maxTotal) * 100;
+                const sabrinaHeight = (month.sabrina / maxTotal) * 100;
+                html += `
+                    <div class="kpi-timeline-bar">
+                        <div class="kpi-timeline-segment sabrina" style="height: ${sabrinaHeight}%"></div>
+                        <div class="kpi-timeline-segment tim" style="height: ${timHeight}%"></div>
+                        <div class="kpi-timeline-label">${month.name}<br>${month.total}</div>
+                    </div>
+                `;
+            });
+            html += '</div>';
+            
+            document.getElementById('kpi-timeline').innerHTML = html;
         }
     </script>
 </body>
