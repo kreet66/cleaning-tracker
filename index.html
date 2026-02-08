@@ -510,17 +510,15 @@
             margin-bottom: 6px;
             padding-bottom: 4px;
             border-bottom: 2px solid #667eea;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
         }
 
         .days-since-badge {
-            font-size: 0.75em;
-            padding: 2px 6px;
-            border-radius: 4px;
+            font-size: 0.85em;
+            padding: 1px 4px;
+            border-radius: 3px;
             font-weight: bold;
-            margin-left: 4px;
+            margin-left: 3px;
+            display: inline-block;
         }
 
         .days-since-badge.fresh {
@@ -1547,27 +1545,24 @@
             }
         }
 
-        // Days Since Last Cleaning Functions
-        function getDaysSinceLastCleaning(roomActivities) {
+        // Days Since Last Cleaning Functions - Pro Aktivität
+        function getDaysSinceLastCleaning(activityValue) {
             const today = new Date();
             today.setHours(0, 0, 0, 0);
             
             let lastDate = null;
             
-            // Durchsuche alle Daten nach den Raum-Aktivitäten
+            // Durchsuche alle Daten nach dieser spezifischen Aktivität
             Object.keys(cleaningData).forEach(dateStr => {
                 const data = cleaningData[dateStr];
                 
-                // Check ob einer der beiden Personen eine der Raum-Aktivitäten gemacht hat
+                // Check ob einer der beiden Personen diese Aktivität gemacht hat
                 ['tim', 'sabrina'].forEach(person => {
-                    if (data[person]) {
-                        const hasRoomActivity = data[person].some(activity => roomActivities.includes(activity));
-                        if (hasRoomActivity) {
-                            const [year, month, day] = dateStr.split('-');
-                            const checkDate = new Date(year, month - 1, day);
-                            if (!lastDate || checkDate > lastDate) {
-                                lastDate = checkDate;
-                            }
+                    if (data[person] && data[person].includes(activityValue)) {
+                        const [year, month, day] = dateStr.split('-');
+                        const checkDate = new Date(year, month - 1, day);
+                        if (!lastDate || checkDate > lastDate) {
+                            lastDate = checkDate;
                         }
                     }
                 });
@@ -1582,63 +1577,37 @@
         }
 
         function updateDaysSinceBadges() {
-            const roomActivitiesMap = {
-                'kueche': ['kueche-wischen', 'kueche-saugen'],
-                'wohnzimmer': ['wohnzimmer-wischen', 'wohnzimmer-saugen'],
-                'bad-oben': ['bad-oben-wischen', 'bad-oben-saugen', 'bad-oben-putzen'],
-                'bad-unten': ['bad-unten-wischen', 'bad-unten-saugen', 'bad-unten-putzen'],
-                'keller': ['keller-wischen', 'keller-saugen'],
-                'schlafzimmer': ['schlafzimmer-wischen', 'schlafzimmer-saugen'],
-                'sonstiges': ['staubwischen', 'treppe']
-            };
+            // Finde alle activity-item Elemente
+            const activityItems = document.querySelectorAll('.activity-item');
             
-            // Finde alle room-title Elemente
-            const roomTitles = document.querySelectorAll('.room-title');
-            
-            roomTitles.forEach(title => {
-                // Extrahiere Raum-Namen aus dem Text
-                const roomText = title.textContent.replace(/\s*-\d+.*$/, '').trim().toLowerCase();
+            activityItems.forEach(item => {
+                const checkbox = item.querySelector('input[type="checkbox"]');
+                const label = item.querySelector('label');
                 
-                let roomKey = null;
-                if (roomText.includes('küche') || roomText.includes('esszimmer') || roomText.includes('flur')) {
-                    roomKey = 'kueche';
-                } else if (roomText.includes('wohnzimmer')) {
-                    roomKey = 'wohnzimmer';
-                } else if (roomText.includes('bad') && roomText.includes('oben')) {
-                    roomKey = 'bad-oben';
-                } else if (roomText.includes('bad') && roomText.includes('unten')) {
-                    roomKey = 'bad-unten';
-                } else if (roomText.includes('keller')) {
-                    roomKey = 'keller';
-                } else if (roomText.includes('schlafzimmer')) {
-                    roomKey = 'schlafzimmer';
-                } else if (roomText.includes('sonstiges')) {
-                    roomKey = 'sonstiges';
-                }
+                if (!checkbox || !label) return;
                 
-                if (roomKey) {
-                    const days = getDaysSinceLastCleaning(roomActivitiesMap[roomKey]);
+                const activityValue = checkbox.value;
+                const days = getDaysSinceLastCleaning(activityValue);
+                
+                // Entferne altes Badge falls vorhanden
+                const oldBadge = label.querySelector('.days-since-badge');
+                if (oldBadge) oldBadge.remove();
+                
+                if (days !== null && days > 0) {
+                    const badge = document.createElement('span');
+                    badge.className = 'days-since-badge';
+                    badge.textContent = ` -${days}`;
                     
-                    // Entferne altes Badge falls vorhanden
-                    const oldBadge = title.querySelector('.days-since-badge');
-                    if (oldBadge) oldBadge.remove();
-                    
-                    if (days !== null && days > 0) {
-                        const badge = document.createElement('span');
-                        badge.className = 'days-since-badge';
-                        badge.textContent = `-${days}`;
-                        
-                        // Farbcodierung
-                        if (days <= 2) {
-                            badge.classList.add('fresh');
-                        } else if (days <= 7) {
-                            badge.classList.add('warning');
-                        } else {
-                            badge.classList.add('critical');
-                        }
-                        
-                        title.appendChild(badge);
+                    // Farbcodierung
+                    if (days <= 2) {
+                        badge.classList.add('fresh');
+                    } else if (days <= 7) {
+                        badge.classList.add('warning');
+                    } else {
+                        badge.classList.add('critical');
                     }
+                    
+                    label.appendChild(badge);
                 }
             });
         }
