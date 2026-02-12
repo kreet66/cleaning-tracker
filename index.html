@@ -536,6 +536,11 @@
             color: white;
         }
 
+        .days-since-badge.never {
+            background: #6c757d;
+            color: white;
+        }
+
         .room-activities {
             display: flex;
             flex-direction: column;
@@ -1593,9 +1598,15 @@
                 const oldBadge = label.querySelector('.days-since-badge');
                 if (oldBadge) oldBadge.remove();
                 
-                if (days !== null && days > 0) {
-                    const badge = document.createElement('span');
-                    badge.className = 'days-since-badge';
+                const badge = document.createElement('span');
+                badge.className = 'days-since-badge';
+                
+                if (days === null) {
+                    // Noch nie gemacht
+                    badge.textContent = ' X';
+                    badge.classList.add('never');
+                } else if (days > 0) {
+                    // Vor X Tagen gemacht
                     badge.textContent = ` -${days}`;
                     
                     // Farbcodierung
@@ -1606,7 +1617,10 @@
                     } else {
                         badge.classList.add('critical');
                     }
-                    
+                }
+                
+                // Badge nur hinzufügen wenn es Inhalt hat
+                if (badge.textContent) {
                     label.appendChild(badge);
                 }
             });
