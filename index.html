@@ -130,6 +130,126 @@
             content: '🌙';
         }
 
+        /* Celebration Modal */
+        .celebration-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.85);
+            z-index: 3000;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .celebration-modal.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .celebration-content {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 40px 30px;
+            border-radius: 30px;
+            width: 90vw;
+            max-width: 500px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            animation: bounceIn 0.5s ease;
+            position: relative;
+        }
+
+        @keyframes bounceIn {
+            0% { 
+                transform: scale(0.3);
+                opacity: 0;
+            }
+            50% { 
+                transform: scale(1.05);
+            }
+            70% { 
+                transform: scale(0.9);
+            }
+            100% { 
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .celebration-emoji {
+            font-size: 5em;
+            margin-bottom: 20px;
+            animation: rotate 0.6s ease;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg) scale(0); }
+            50% { transform: rotate(180deg) scale(1.2); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+
+        .celebration-name {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .celebration-message {
+            font-size: 1.4em;
+            color: white;
+            margin-bottom: 30px;
+            line-height: 1.6;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .btn-celebration-close {
+            padding: 15px 40px;
+            font-size: 1.2em;
+            background: white;
+            color: #667eea;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .btn-celebration-close:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        .btn-celebration-close:active {
+            transform: scale(0.95);
+        }
+
+        /* Confetti Animation */
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #f0f;
+            position: absolute;
+            animation: confetti-fall 3s linear infinite;
+        }
+
+        @keyframes confetti-fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
         /* Setup Modal */
         .modal {
             display: none;
@@ -1216,6 +1336,16 @@
     </style>
 </head>
 <body>
+    <!-- Celebration Modal -->
+    <div class="celebration-modal" id="celebration-modal">
+        <div class="celebration-content">
+            <div class="celebration-emoji" id="celebration-emoji">🎉</div>
+            <div class="celebration-name" id="celebration-name"></div>
+            <div class="celebration-message" id="celebration-message"></div>
+            <button class="btn-celebration-close" onclick="closeCelebration()">Weiter putzen! 💪</button>
+        </div>
+    </div>
+
     <!-- Setup Modal -->
     <div class="modal" id="setup-modal">
         <div class="modal-content">
@@ -1425,7 +1555,7 @@
             </div>
 
             <div class="action-buttons">
-                <button class="btn btn-save" onclick="saveActivities()">💾 Speichern & Sync</button>
+                <button class="btn btn-save" onclick="saveActivities()">💾 Speichern</button>
                 <button class="btn btn-export" onclick="exportDataBackup()">📥 Export Backup</button>
                 <button class="btn btn-import" onclick="importDataBackup()">📤 Import Backup</button>
                 <input type="file" id="import-backup-file" class="hidden" accept=".json" onchange="handleBackupImport(event)">
@@ -1534,6 +1664,86 @@
         let cleaningData = {};
         let githubConfig = null;
         let currentFileSha = null;
+
+        // 50 Lustige Lob-Statements
+        const celebrationMessages = [
+            "Wow {name}! Du bist eine Putz-Legende! 🌟",
+            "{name}, du machst das Putzen zu einer Kunstform! 🎨",
+            "Sauber, {name}! Und das meine ich wörtlich! ✨",
+            "{name}, du bist der Putzteufel höchstpersönlich! 😈🧹",
+            "Chapeau, {name}! Der Raum glänzt vor Stolz! 💎",
+            "{name}, selbst Marie Kondo wäre beeindruckt! 🙏",
+            "Bäm! {name} hat zugeschlagen - und alles ist sauber! 💥",
+            "{name}, du bist nicht der Held den wir verdienen, aber der den wir brauchen! 🦸",
+            "Respekt, {name}! Das nenne ich Teamwork! 🤝",
+            "{name}, du hast gerade den Putz-Olymp erklommen! 🏔️",
+            "Glänzende Leistung, {name}! Wortwörtlich! ✨",
+            "{name}, du bist die personifizierte Sauberkeit! 🧼",
+            "Hammer, {name}! So macht Hausarbeit Spaß! 🔨",
+            "{name}, du bist ein Meister des Mopps! 🧙‍♂️",
+            "Bravo, {name}! Der Schmutz hatte keine Chance! 👏",
+            "{name}, du bist der Fleck-Vernichter! 🎯",
+            "Top Job, {name}! Hier glänzt alles! 🌟",
+            "{name}, du bist die Geheimwaffe gegen Chaos! 🚀",
+            "Sensationell, {name}! Alles picobello! 🎊",
+            "{name}, du machst Dreck das Leben schwer! 💪",
+            "Hut ab, {name}! Das war Profi-Arbeit! 🎩",
+            "{name}, du bist der Saubermann/die Sauberfrau des Tages! 🏆",
+            "Fantastisch, {name}! Du rockst das Putzen! 🎸",
+            "{name}, du bist ein Hygiene-Held! 🦸‍♀️",
+            "Stark, {name}! Hier kann man vom Boden essen! 🍽️",
+            "{name}, du bist der Schrecken aller Staubkörnchen! 🌪️",
+            "Legendär, {name}! Das ist Putzen auf Weltklasse-Niveau! 🌍",
+            "{name}, du hast gerade einen Putz-Meilenstein gesetzt! 🏁",
+            "Wow {name}! Hier könnte man eine OP durchführen! 🏥",
+            "{name}, du bist der Ninja der Sauberkeit! 🥷",
+            "Phänomenal, {name}! Der Glanz ist zurück! ✨",
+            "{name}, du machst den Unterschied! Danke! 🙌",
+            "Brillant, {name}! Alles tip-top! 👌",
+            "{name}, du bist ein Wirbelwind der Ordnung! 🌀",
+            "Mega, {name}! Das war Turbo-Putzen! ⚡",
+            "{name}, du bist der Held mit dem Lappen! 🦸",
+            "Krass, {name}! So schnell war hier noch nie sauber! 🏎️",
+            "{name}, du bist die Putzkraft der Herzen! 💝",
+            "Exzellent, {name}! Das nenne ich Perfektion! 💯",
+            "{name}, du bist der Boss im Putz-Business! 😎",
+            "Großartig, {name}! Jeder Fleck hat kapituliert! 🏳️",
+            "{name}, du bist ein Sauberkeits-Magier! 🪄",
+            "Respekt, {name}! Das ist Championship-Level! 🏆",
+            "{name}, du machst die Welt zu einem saubereren Ort! 🌎",
+            "Klasse, {name}! Du bist unser Putzstern! ⭐",
+            "{name}, du bist der Terminator des Schmutzes! 🤖",
+            "Bombastisch, {name}! Hier ist alles perfekt! 💣",
+            "{name}, du bist ein Vorbild für uns alle! 👏",
+            "Genial, {name}! Das war Putzen mit Stil! 🎩",
+            "{name}, du bist einfach unschlagbar sauber! 🥊"
+        ];
+
+        // Celebration Functions
+        function showCelebration(personName) {
+            const modal = document.getElementById('celebration-modal');
+            const nameElement = document.getElementById('celebration-name');
+            const messageElement = document.getElementById('celebration-message');
+            const emojiElement = document.getElementById('celebration-emoji');
+            
+            // Zufälliges Statement auswählen
+            const randomIndex = Math.floor(Math.random() * celebrationMessages.length);
+            const message = celebrationMessages[randomIndex].replace('{name}', personName);
+            
+            // Zufälliges Emoji auswählen
+            const emojis = ['🎉', '🎊', '✨', '⭐', '🌟', '💫', '🏆', '👏', '💪', '🚀'];
+            const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
+            
+            nameElement.textContent = personName;
+            messageElement.textContent = message;
+            emojiElement.textContent = randomEmoji;
+            
+            modal.classList.add('active');
+        }
+
+        function closeCelebration() {
+            document.getElementById('celebration-modal').classList.remove('active');
+        }
 
         // Dark Mode Functions
         function toggleDarkMode() {
@@ -1989,6 +2199,10 @@
             if (document.getElementById('kpi-content').classList.contains('open')) {
                 updateKPIs();
             }
+
+            // CELEBRATION POPUP ZEIGEN! 🎉
+            const personName = selectedPerson === 'tim' ? 'Tim' : 'Sabrina';
+            showCelebration(personName);
         }
 
         // Calendar Rendering
