@@ -87,5 +87,16 @@
       "bad-unten-saugen",
       "treppe"
     ]
+  },
+  "2026-02-15": {
+    "tim": [
+      "kueche-wischen",
+      "wohnzimmer-wischen",
+      "wohnzimmer-saugen",
+      "bad-unten-wischen",
+      "keller-wischen",
+      "keller-saugen"
+    ],
+    "sabrina": []
   }
 }
