@@ -142,7 +142,12 @@
       "kueche-saugen",
       "schlafzimmer-saugen",
       "staubwischen",
-      "kueche-wischen"
+      "kueche-wischen",
+      "bad-oben-wischen",
+      "bad-oben-saugen",
+      "bad-unten-wischen",
+      "bad-unten-saugen",
+      "schlafzimmer-wischen"
     ],
     "sabrina": []
   }
