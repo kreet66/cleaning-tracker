@@ -136,5 +136,13 @@
       "keller-saugen",
       "treppe"
     ]
+  },
+  "2026-03-02": {
+    "tim": [
+      "kueche-saugen",
+      "schlafzimmer-saugen",
+      "staubwischen"
+    ],
+    "sabrina": []
   }
 }
