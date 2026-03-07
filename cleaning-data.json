@@ -150,5 +150,16 @@
       "schlafzimmer-wischen"
     ],
     "sabrina": []
+  },
+  "2026-03-07": {
+    "tim": [],
+    "sabrina": [
+      "kueche-saugen",
+      "bad-oben-saugen",
+      "bad-oben-putzen",
+      "bad-unten-saugen",
+      "bad-unten-putzen",
+      "treppe"
+    ]
   }
 }
