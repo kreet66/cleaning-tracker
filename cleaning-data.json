@@ -194,5 +194,18 @@
       "bad-unten-putzen",
       "keller-saugen"
     ]
+  },
+  "2026-04-09": {
+    "tim": [
+      "kueche-wischen",
+      "kueche-saugen",
+      "bad-oben-wischen",
+      "bad-oben-saugen",
+      "bad-unten-wischen",
+      "bad-unten-saugen",
+      "schlafzimmer-wischen",
+      "schlafzimmer-saugen"
+    ],
+    "sabrina": []
   }
 }
