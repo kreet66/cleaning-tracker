@@ -299,5 +299,17 @@
     "sabrina": [
       "bad-unten-putzen"
     ]
+  },
+  "2026-05-19": {
+    "tim": [
+      "kueche-wischen",
+      "kueche-saugen",
+      "wohnzimmer-saugen",
+      "bad-oben-wischen",
+      "bad-unten-wischen",
+      "schlafzimmer-wischen",
+      "schlafzimmer-saugen"
+    ],
+    "sabrina": []
   }
 }
