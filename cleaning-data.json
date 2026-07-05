@@ -379,5 +379,15 @@
       "schlafzimmer-saugen",
       "treppe"
     ]
+  },
+  "2026-07-05": {
+    "tim": [],
+    "sabrina": [
+      "kueche-wischen",
+      "kueche-saugen",
+      "bad-oben-saugen",
+      "bad-unten-saugen",
+      "treppe"
+    ]
   }
 }
