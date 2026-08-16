@@ -420,5 +420,15 @@
       "schlafzimmer-saugen",
       "treppe"
     ]
+  },
+  "2026-08-16": {
+    "tim": [],
+    "sabrina": [
+      "kueche-saugen",
+      "bad-oben-saugen",
+      "bad-unten-saugen",
+      "bad-unten-putzen",
+      "treppe"
+    ]
   }
 }
